@@ -1,0 +1,25 @@
+[project]
+name = "diogenesis-sdk"
+version = "0.1.0"
+description = "Behavioral health for Python applications. Not signatures. Not rules. Coherence."
+authors = [{name = "Garry Anderson", email = "prnt3dman1@gmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.9"
+dependencies = []
+readme = "README.md"
+keywords = ["security", "behavioral", "monitoring", "runtime", "anomaly", "detection"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/prnt3dman1/diogenesis-sdk"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
