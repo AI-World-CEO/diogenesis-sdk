@@ -1,24 +1,32 @@
 [project]
 name = "diogenesis-sdk"
-version = "0.1.0"
-description = "Behavioral health for Python applications. Not signatures. Not rules. Coherence."
+version = "0.2.0"
+description = "Behavioral immune system for AI applications. Runtime monitoring, anomaly detection, and self-healing for autonomous AI agents."
 authors = [{name = "Garry Anderson", email = "prnt3dman1@gmail.com"}]
-license = {text = "MIT"}
-requires-python = ">=3.9"
+license = "MIT"
+requires-python = ">=3.8"
 dependencies = []
 readme = "README.md"
-keywords = ["security", "behavioral", "monitoring", "runtime", "anomaly", "detection"]
+keywords = ["ai", "security", "monitoring", "behavioral", "immune-system", "runtime", "agent", "safety", "anomaly-detection", "llm"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 [project.urls]
-Homepage = "https://github.com/prnt3dman1/diogenesis-sdk"
+Homepage = "https://diogenicsecurity.com"
+Documentation = "https://diogenicsecurity.com/docs"
+Source = "https://github.com/AI-World-CEO/Prometheus_Prime"
+"Bug Tracker" = "https://github.com/AI-World-CEO/Prometheus_Prime/issues"
 
 [build-system]
 requires = ["setuptools>=68.0"]

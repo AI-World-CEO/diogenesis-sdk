@@ -41,7 +41,7 @@ investigations = _engine.investigations
 threat_summary = _engine.threat_summary
 add_agent = _engine.add_agent
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "Garry Anderson"
 __all__ = [
     "activate", "deactivate", "status", "log", "baseline", "configure",
