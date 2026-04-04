@@ -3,7 +3,7 @@ name = "diogenesis-sdk"
 version = "0.2.0"
 description = "Behavioral immune system for AI applications. Runtime monitoring, anomaly detection, and self-healing for autonomous AI agents."
 authors = [{name = "Garry Anderson", email = "prnt3dman1@gmail.com"}]
-license = "MIT"
+license = "Apache-2.0"
 requires-python = ">=3.8"
 dependencies = []
 readme = "README.md"
