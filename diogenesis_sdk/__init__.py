@@ -41,6 +41,11 @@ investigations = _engine.investigations
 threat_summary = _engine.threat_summary
 add_agent = _engine.add_agent
 
+def start_monitoring(**kwargs):
+    """Convenience alias — activates monitoring and returns status."""
+    activate(**kwargs)
+    return status()
+
 __version__ = "0.2.0"
 __author__ = "Garry Anderson"
 __all__ = [
@@ -48,5 +53,6 @@ __all__ = [
     "alerts", "alert_summary", "escalations", "add_pattern", "evaluate_policies",
     "field_state", "module_voltage", "voltage_history", "connection_graph",
     "create_scheduler", "investigations", "threat_summary", "add_agent",
+    "start_monitoring",
     "BehavioralPattern", "FibonacciClock", "XenobotAgent",
 ]
