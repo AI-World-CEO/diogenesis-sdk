@@ -1,82 +1,72 @@
 # Diogenesis SDK
 
-**Behavioral immune system for AI applications.**
+**Runtime security for AI applications.** Monitors what your AI does — every import, file write, network connection, and subprocess — and alerts when behavior deviates from normal.
 
-Diogenesis monitors what your AI does at runtime — every import, file write, network connection, and subprocess — and detects when behavior deviates from the expected baseline. No external dependencies. Pure Python. One command to install.
+Zero dependencies. Pure Python. Works with any AI framework.
+
+## Install
 
 ```bash
 pip install diogenesis-sdk
 ```
 
-## Why Diogenesis?
-
-AI agents are increasingly autonomous. They write code, execute commands, access files, and make network requests without human approval for each action. Traditional security tools can't monitor this:
-
-- **Firewalls** block known threats. They can't detect an AI agent gradually escalating permissions.
-- **Antivirus** scans for known signatures. An AI acting outside scope looks nothing like malware.
-- **Monitoring tools** track CPU and memory. They can't tell you your AI just imported `subprocess` for the first time.
-
-Diogenesis fills this gap.
-
 ## Quick Start
 
 ```python
-import diogenesis_sdk
+from diogenesis_sdk import activate, status, threat_summary
 
-# Start behavioral monitoring
-diogenesis_sdk.activate()
+# Turn on monitoring
+activate()
 
-# Your AI application runs normally...
-import os  # This import is now tracked
-with open("data.json") as f:  # This file access is tracked
-    data = f.read()
-
-# Check system health
-print(diogenesis_sdk.status())        # Interceptor counts + field coherence
-print(diogenesis_sdk.field_state())   # Per-module behavioral voltage
-print(diogenesis_sdk.alerts())        # Policy alerts
-print(diogenesis_sdk.threat_summary())  # Threat/suspicious/benign counts
-
-# Clean shutdown — all originals restored
-diogenesis_sdk.deactivate()
+# Check what's happening
+print(status())
 ```
 
-## Core Components
+If it worked, you'll see something like:
 
-| Component | What It Does |
-|-----------|-------------|
-| **Interceptors** | Capture every import, file write, subprocess, and network call at runtime |
-| **Policy Engine** | Classify behavioral patterns (exfiltration, privilege escalation, shadow imports) with graduated response |
-| **Voltage Field** | Track per-module behavioral coherence over time — like bioelectric fields in living tissue |
-| **Fibonacci Clock** | Time agent patrols at PHI-ratio intervals. Unpredictable to adversaries, mathematically guaranteed for coverage |
-| **Xenobot Agents** | Autonomous investigators that patrol, detect anomalies, and share learning across the swarm |
+```
+{'active': True, 'interceptors': 4, 'total_events': 1200, 'field_coherence': 1.0, ...}
+```
 
-## Features
+That means Diogenesis is watching every import, file access, network call, and subprocess.
 
-- **Zero dependencies** — pure Python standard library only
-- **104 automated tests** — production-grade quality
-- **Behavioral baseline** — learns what "normal" looks like, alerts on deviation
-- **Graduated response** — LOG → WARN → ALERT based on repeat violations
-- **5 built-in threat patterns** — data exfiltration, suspicious import chains, write bursts, network scans, shadow imports
-- **Biologically inspired** — voltage fields and xenobot agents modeled on biological immune systems
-- **Python 3.8+** — works with any Python AI framework
-
-## Built-In Threat Patterns
+## What Can It Do?
 
 ```python
-from diogenesis_sdk import BehavioralPattern, add_pattern
+from diogenesis_sdk import activate, status, field_state, threat_summary
 
-# 5 patterns ship out of the box:
-# - data_exfiltration (file read + network send)
-# - suspicious_import_chain (suspicious import + subprocess)
-# - unusual_write_burst (5+ unexpected file writes in 10s)
-# - network_scan (3+ connections to unknown hosts in 5s)
-# - shadow_import (suspicious import + sensitive file access)
+activate()
 
-# Add your own:
-custom = BehavioralPattern(
+# System health — are interceptors running?
+print(status())
+
+# Behavioral voltage — per-module coherence scores
+print(field_state())
+
+# Threat analysis — what did the xenobot agents find?
+print(threat_summary())
+```
+
+Example output:
+
+```
+Threats: 0 | Suspicious: 0
+Agents: ['import_guardian', 'file_sentinel', 'network_watcher', 'subprocess_monitor']
+```
+
+Four agents are patrolling your application automatically.
+
+## Add Custom Threat Patterns
+
+```python
+from diogenesis_sdk import activate, add_pattern, BehavioralPattern
+
+activate()
+
+# Detect: file read followed by network send (possible data leak)
+pattern = BehavioralPattern(
     name="api_key_leak",
-    description="Environment variable read followed by network POST",
+    description="Sensitive file read followed by outbound network call",
     event_sequence=[
         {"type": "file", "detail_contains": {"path": ".env"}},
         {"type": "network", "classification": "UNEXPECTED"},
@@ -84,72 +74,79 @@ custom = BehavioralPattern(
     window_seconds=30,
     severity="CRITICAL",
 )
-add_pattern(custom)
+add_pattern(pattern)
 ```
 
-## Voltage Field — Behavioral Health at a Glance
-
-Every monitored module gets a behavioral "voltage" — a coherence score reflecting how closely its current behavior matches its baseline. Voltage drops before attacks complete.
+## Create Custom Agents
 
 ```python
-import diogenesis_sdk
+from diogenesis_sdk import activate, XenobotAgent, add_agent, investigations
 
-diogenesis_sdk.activate()
-# ... application runs ...
+activate()
 
-state = diogenesis_sdk.field_state()
-for module, info in state["modules"].items():
+# Create an agent that specializes in file monitoring
+agent = XenobotAgent("file_patrol", domain="file")
+add_agent(agent)
+
+# Check investigation findings
+print(investigations())
+```
+
+Each agent uses a 5-phase investigation cycle: Observe, Question, Search, Synthesize, Crystallize.
+
+## Behavioral Voltage Field
+
+Every module gets a "voltage" score — how closely its behavior matches baseline. Voltage drops before attacks complete.
+
+```python
+from diogenesis_sdk import activate, field_state
+
+activate()
+
+state = field_state()
+for name, info in state["modules"].items():
     voltage = info["voltage"]
     if voltage < 0.5:
-        print(f"WARNING: {module} behavioral coherence low ({voltage:.2f})")
+        print(f"WARNING: {name} coherence low ({voltage:.2f})")
+    else:
+        print(f"OK: {name} stable at {voltage:.2f}")
 ```
 
-## Xenobot Agents — Autonomous Investigation
+## Core Components
 
-When anomalies are detected, xenobot agents run a 5-phase investigation cycle inspired by biological immune response:
+| Component | What It Does |
+|-----------|-------------|
+| **Interceptors** | Capture every import, file write, subprocess, and network call |
+| **Policy Engine** | Classify patterns (exfiltration, privilege escalation, shadow imports) |
+| **Voltage Field** | Per-module behavioral coherence — drops before attacks complete |
+| **Fibonacci Clock** | Agent patrols at PHI-ratio intervals (3, 5, 8, 13, 21 cycles) |
+| **Xenobot Agents** | Autonomous investigators that detect anomalies and share learning |
 
-1. **Observe** — extract facts from the anomalous event
-2. **Question** — generate investigation hypothesis
-3. **Search** — gather evidence from context
-4. **Synthesize** — form verdict with confidence score
-5. **Crystallize** — record finding, update behavioral model
+## Features
 
-```python
-from diogenesis_sdk import XenobotAgent
+- **Zero dependencies** — pure Python standard library only
+- **104 automated tests** — production-grade
+- **Python 3.8+** — works with any AI framework
+- **Behavioral baseline** — learns "normal", alerts on deviation
+- **Graduated response** — LOG → WARN → ALERT
+- **5 built-in threat patterns** — exfiltration, import chains, write bursts, network scans, shadow imports
 
-# Custom agent with your own reasoning logic
-agent = XenobotAgent(
-    name="my_investigator",
-    domain="network",  # Specializes in network events
-    reasoning_fn=my_custom_reasoning,  # Optional: plug in LLM or rules
-)
-```
+## Troubleshooting
 
-## Fibonacci Scheduling
+**"ModuleNotFoundError: No module named 'diogenesis_sdk'"**
+Run: `pip install diogenesis-sdk` (note the hyphen, not underscore)
 
-Agent patrols fire at Fibonacci intervals (3, 5, 8, 13, 21 cycles). When multiple agents align simultaneously, deep scans trigger. Unpredictable to attackers, mathematically guaranteed for coverage.
-
-```python
-from diogenesis_sdk import FibonacciClock
-
-clock = FibonacciClock()
-clock.register_agent("fast_check", 0)   # Every 3 cycles
-clock.register_agent("deep_scan", 3)    # Every 13 cycles
-
-for _ in range(100):
-    result = clock.tick()
-    if result["resonance"]:
-        print(f"Resonance event: {result['resonance']['type']}")
-```
+**"ImportError: cannot import name 'activate'"**
+Make sure you have version 0.2.0+: `pip install --upgrade diogenesis-sdk`
 
 ## License
 
-Apache License 2.0. Free for commercial and personal use. Includes patent protection.
+Apache License 2.0. Free for commercial and personal use.
 
 ## Links
 
 - **Website**: [diogenicsecurity.com](https://diogenicsecurity.com)
-- **Source**: [github.com/AI-World-CEO/Prometheus_Prime](https://github.com/AI-World-CEO/Prometheus_Prime)
+- **Source**: [github.com/AI-World-CEO/diogenesis-sdk](https://github.com/AI-World-CEO/diogenesis-sdk)
 - **PyPI**: [pypi.org/project/diogenesis-sdk](https://pypi.org/project/diogenesis-sdk/)
 
 ---

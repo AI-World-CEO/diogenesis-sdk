@@ -24,9 +24,9 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://diogenicsecurity.com"
-Documentation = "https://diogenicsecurity.com/docs"
-Source = "https://github.com/AI-World-CEO/Prometheus_Prime"
-"Bug Tracker" = "https://github.com/AI-World-CEO/Prometheus_Prime/issues"
+Documentation = "https://diogenicsecurity.com"
+Source = "https://github.com/AI-World-CEO/diogenesis-sdk"
+"Bug Tracker" = "https://github.com/AI-World-CEO/diogenesis-sdk/issues"
 
 [build-system]
 requires = ["setuptools>=68.0"]
