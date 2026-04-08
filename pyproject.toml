@@ -1,6 +1,6 @@
 [project]
 name = "diogenesis-sdk"
-version = "0.2.0"
+version = "0.2.1"
 description = "Behavioral immune system for AI applications. Runtime monitoring, anomaly detection, and self-healing for autonomous AI agents."
 authors = [{name = "Garry Anderson", email = "prnt3dman1@gmail.com"}]
 license = "Apache-2.0"
@@ -21,7 +21,6 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "License :: OSI Approved :: Apache Software License",
 ]
 
 [project.urls]
